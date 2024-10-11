@@ -1,0 +1,18 @@
+<settings>
+	<servers>
+		<server>
+			<id>central</id>
+			<username>${server_username}</username>
+			<password>${server_password}</password>
+		</server>
+	</servers>
+	<profiles>
+		<profile>
+			<id>central</id>
+			<properties>
+				<gpg.passphrase>${gpg_passphrase}</gpg.passphrase>
+				<gpg.keyname>${gpg_keyname}</gpg.keyname>
+			</properties>
+		</profile>
+	</profiles>
+</settings>
