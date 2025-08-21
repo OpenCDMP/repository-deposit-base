@@ -1,6 +1,10 @@
 package org.opencdmp.depositbase.repository;
 
+import org.opencdmp.commonmodels.models.ConfigurationField;
+import org.opencdmp.depositbase.enums.DepositAuthMethod;
 import org.opencdmp.depositbase.enums.DepositType;
+
+import java.util.List;
 
 public class DepositConfiguration {
 
@@ -16,6 +20,9 @@ public class DepositConfiguration {
     private String redirectUri;
     private boolean useSharedStorage;
     private boolean hasLogo;
+    private List<ConfigurationField> configurationFields;
+    private List<ConfigurationField> userConfigurationFields;
+    private List<DepositAuthMethod> authMethods;
 
     public DepositType getDepositType() {
         return depositType;
@@ -100,5 +107,29 @@ public class DepositConfiguration {
 
     public void setUseSharedStorage(boolean useSharedStorage) {
         this.useSharedStorage = useSharedStorage;
+    }
+
+    public List<ConfigurationField> getConfigurationFields() {
+        return configurationFields;
+    }
+
+    public void setConfigurationFields(List<ConfigurationField> configurationFields) {
+        this.configurationFields = configurationFields;
+    }
+
+    public List<ConfigurationField> getUserConfigurationFields() {
+        return userConfigurationFields;
+    }
+
+    public void setUserConfigurationFields(List<ConfigurationField> userConfigurationFields) {
+        this.userConfigurationFields = userConfigurationFields;
+    }
+
+    public List<DepositAuthMethod> getAuthMethods() {
+        return authMethods;
+    }
+
+    public void setAuthMethods(List<DepositAuthMethod> authMethods) {
+        this.authMethods = authMethods;
     }
 }

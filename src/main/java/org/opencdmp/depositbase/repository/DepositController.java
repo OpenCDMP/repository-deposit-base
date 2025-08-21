@@ -17,16 +17,17 @@ public interface DepositController {
      * Returns a string representing the persistent digital object identifier (DOI) which
      * was created.
      *
-     * @param planDepositModel plan structure which is to be deposited
-     * @param authToken access token needed for the authentication to the repository
-     *                              if this is null, another authentication mechanism is used for
+     * @param planDepositModel contains plan model which is to be deposited and auth info structure needed for the authentication to the repository.
+     *                              Auth info contains access token and plugin user fields.
+     *                              if access token is null, another authentication mechanism is used for
      *                              that repository e.g. api token which will be fetched from the
-     *                              repository's configuration
+     *                              repository's configuration. If repository don't support access token,
+     *                              could use plugin user fields that contains configuration for authentication
      * @return a string representing the persistent digital object identifier (DOI)
      * @throws Exception if an error occurs while trying to deposit the plan
      */
     @PostMapping()
-    String deposit(@RequestBody PlanModel planDepositModel, @RequestParam("authToken")String authToken) throws Exception;
+    String deposit(@RequestBody PlanDepositModel planDepositModel) throws Exception;
 
     /**
      * Returns the access token from the oauth2 flow.
