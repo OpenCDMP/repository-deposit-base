@@ -27,7 +27,7 @@ public interface DepositController {
      * @throws Exception if an error occurs while trying to deposit the plan
      */
     @PostMapping()
-    String deposit(@RequestBody PlanDepositModel planDepositModel) throws Exception;
+    String deposit(@RequestBody PlanDepositModel planDepositModel);
 
     /**
      * Returns the access token from the oauth2 flow.

@@ -21,9 +21,8 @@ public interface DepositClient {
      *                              repository's configuration. If repository don't support access token,
      *                              could use plugin user fields that contains configuration for authentication
      * @return a string representing the persistent digital object identifier (DOI)
-     * @throws Exception if an error occurs while trying to deposit the plan
      */
-    String deposit(PlanDepositModel planDepositModel) throws Exception;
+    String deposit(PlanDepositModel planDepositModel);
 
     /**
      * Returns the access token from the oauth2 flow.
