@@ -1,10 +1,15 @@
 package org.opencdmp.depositbase.repository;
 
+import org.opencdmp.commonmodels.models.deposit.DepositPreviewModel;
+import org.opencdmp.commonmodels.models.deposit.PreviewFieldOption;
 import org.opencdmp.commonmodels.models.plan.PlanModel;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import java.util.List;
 
 /**
  * The RepositoryDeposit interface represents the mechanism of depositing a plan to any
@@ -28,6 +33,35 @@ public interface DepositController {
      */
     @PostMapping()
     String deposit(@RequestBody PlanDepositModel planDepositModel);
+
+    /**
+     * Returns a preview descriptor of the metadata that would be deposited for the given
+     * plan: a form description of the target repository's deposit fields with current
+     * values prefilled by the same mapping the deposit uses, without submitting anything
+     * to the repository. Only offered by the platform when the repository's configuration
+     * declares supportsPreview.
+     *
+     * @param planDepositModel contains the plan model to preview; auth info is not required for previewing
+     * @return the preview descriptor with field groups, field types and prefilled values
+     */
+    @PostMapping("/preview")
+    default DepositPreviewModel preview(@RequestBody PlanDepositModel planDepositModel) {
+        throw new UnsupportedOperationException("preview not supported");
+    }
+
+    /**
+     * Searches the target repository's controlled vocabulary backing a preview
+     * field (e.g. licenses, languages, communities). Only called for fields whose
+     * descriptor declares vocabSearch.
+     *
+     * @param fieldCode the preview field code whose vocabulary to search
+     * @param like optional user-typed filter term; null or blank returns top entries
+     * @return matching options (label + value), ordered by relevance
+     */
+    @GetMapping("/vocab/{fieldCode}")
+    default List<PreviewFieldOption> searchVocabulary(@PathVariable("fieldCode") String fieldCode, @RequestParam(value = "like", required = false) String like) {
+        throw new UnsupportedOperationException("vocabulary search not supported");
+    }
 
     /**
      * Returns the access token from the oauth2 flow.
