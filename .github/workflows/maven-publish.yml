@@ -28,6 +28,12 @@ jobs:
         gpg-private-key: ${{ secrets.GPG_SIGNING_KEY }}
         gpg-passphrase: MAVEN_GPG_PASSPHRASE
 
+    - name: Set up Maven 3.9.16
+      # Maven 3.10 adds maven-metadata-local.xml to the Central bundle, which Central rejects
+      run: |
+        curl -sSfL https://repo1.maven.org/maven2/org/apache/maven/apache-maven/3.9.16/apache-maven-3.9.16-bin.tar.gz | tar xz -C "$HOME"
+        echo "$HOME/apache-maven-3.9.16/bin" >> "$GITHUB_PATH"
+        "$HOME/apache-maven-3.9.16/bin/mvn" -v
     - name: Set version
       run: mvn versions:set -DnewVersion=${{ github.event.inputs.releaseversion }}
 #      run: mvn versions:set -DnewVersion=${{ github.event.release.tag_name }}
