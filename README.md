@@ -17,12 +17,13 @@ The package holds the Java interfaces, configuration classes and helpers that ev
 
 | Class | Purpose |
 | --- | --- |
-| `DepositClient` | The service-side contract: deposit a plan, build the metadata preview, search a controlled vocabulary, exchange an OAuth 2.0 code for a token, and return the configuration and logo. |
+| `DepositClient` | The service-side contract: deposit a plan, build the metadata preview, search a controlled vocabulary, exchange an OAuth 2.0 code for a token, name the account a deposit used, and return the configuration and logo. |
 | `DepositController` | The REST endpoints OpenCDMP calls under `/api/deposit` on the service's URL. Implement it in a `@RestController` mapped there. |
 | `PlanDepositModel`, `AuthInfo` | The deposit request: the plan, the user's credentials, and the metadata edits made in the review. |
 | `DepositConfiguration` | What the service reports to OpenCDMP: its repository id, how users can authenticate, which files it uploads, whether it supports the metadata review, the settings it offers to organisations and users, and the semantics it reads. |
 | `DepositPluginSettings` | Reads the plugin's settings for one deposit from the plan: the defaults the plugin declares, overridden by the values the organisation set. |
 | `DepositPreviewMergeHelper` | Merges metadata edits a user saved earlier into a fresh preview. |
+| `DepositAccount` | The repository account a deposit used: an identifier and a name to show users. |
 | `CustomFieldProperties`, enums | Supporting types: `DepositType`, `DepositAuthMethod`, `DepositFileKind` and `DataType`. |
 
 ### Endpoints
@@ -32,6 +33,7 @@ The package holds the Java interfaces, configuration classes and helpers that ev
 | `POST` | `/api/deposit` | `PlanDepositModel` | the persistent identifier |
 | `POST` | `/api/deposit/preview` | `PlanDepositModel` | `DepositPreviewModel` |
 | `GET` | `/api/deposit/vocab/{fieldCode}?like=<term>` | - | list of `PreviewFieldOption` |
+| `POST` | `/api/deposit/account` | `PlanDepositModel` without the plan's files | `DepositAccount`, or empty when the plugin can't tell (optional) |
 | `GET` | `/api/deposit/authenticate?authToken=<code>` | - | the access token |
 | `GET` | `/api/deposit/configuration` | - | `DepositConfiguration` |
 | `GET` | `/api/deposit/logo` | - | the logo image, Base64-encoded |

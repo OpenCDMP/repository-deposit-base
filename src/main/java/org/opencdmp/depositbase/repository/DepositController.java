@@ -64,6 +64,20 @@ public interface DepositController {
     }
 
     /**
+     * Returns the repository account that the given credentials belong to, so the platform can tell
+     * users which account published a plan: a new version is usually accepted only from that account.
+     * Called after a successful deposit with the same auth info and plan settings, without the plan's
+     * files. Plugins that cannot tell may return null.
+     *
+     * @param planDepositModel the auth info and the plan's plugin settings the deposit used
+     * @return the account's identifier and a name to show users, or null when unknown
+     */
+    @PostMapping("/account")
+    default DepositAccount account(@RequestBody PlanDepositModel planDepositModel) {
+        return null;
+    }
+
+    /**
      * Returns the access token from the oauth2 flow.
      *
      * @param code oauth2 authorization code
